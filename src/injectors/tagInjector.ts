@@ -15,38 +15,20 @@ export async function injectTagsIntoFile(filePath: string, framework: Framework)
         const componentName = getComponentNameFromTag(content);
 
         if (componentName) {
+            let elementRegex;
             if (framework === 'vue') {
-                const childElementMatch = content.match(/<template[^>]*>([\s\S]*?)<\/template>/);
-                const childElement = childElementMatch ? childElementMatch[1].trim() : '';
-                const childElementIsTemplate = childElement.startsWith('<template');
-
-                if (!childElementIsTemplate) {
-                    const childElementRegex = new RegExp(`<${childElement.split(' ')[0]}([^>]*)>`, 'g');
-                    content = content.replace(childElementRegex, (match) => {
-                        return match.replace('>', ` hya-component-name="${componentName}" hya-url="vscode://file/${path
-                            .resolve(filePath)
-                            .replace(/\\/g, '/')}">`);
-                    });
-                } else {
-                    const nonTemplateChildElementMatch = childElement.match(/<([^>\s]+)(?:\s[^>]*)?>/);
-                    const nonTemplateChildElement = nonTemplateChildElementMatch ? nonTemplateChildElementMatch[1] : '';
-                    if (nonTemplateChildElement) {
-                        const nonTemplateChildElementRegex = new RegExp(`<${nonTemplateChildElement}([^>]*)>`, 'g');
-                        content = content.replace(nonTemplateChildElementRegex, (match) => {
-                            return match.replace('>', ` hya-component-name="${componentName}" hya-url="vscode://file/${path
-                                .resolve(filePath)
-                                .replace(/\\/g, '/')}">`);
-                        });
-                    }
-                }
+                const childElementMatch = content.match(/<(?!template\b)[^>\s]+/);
+                const childElement = childElementMatch ? childElementMatch[0] : '';
+                elementRegex = new RegExp(`<${childElement}([^>]*)>`, 'g');
             } else {
-                const regex = new RegExp(`<${componentName}([^>]*)>`, 'g');
-                content = content.replace(regex, (match) => {
-                    return match.replace('>', ` hya-component-name="${componentName}" hya-url="vscode://file/${path
-                        .resolve(filePath)
-                        .replace(/\\/g, '/')}">`);
-                });
+                elementRegex = new RegExp(`<${componentName}([^>]*)>`, 'g');
             }
+
+            content = content.replace(elementRegex, (match) => {
+                return match.replace('>', ` hya-component-name="${componentName}" hya-url="vscode://file/${path
+                    .resolve(filePath)
+                    .replace(/\\/g, '/')}">`);
+            });
 
             await writeFile(filePath, content);
         }
