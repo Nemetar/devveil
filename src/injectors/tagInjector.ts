@@ -26,19 +26,27 @@ export async function injectTagsIntoFile(filePath: string, framework: Framework)
     let content = await readFile(filePath);
     const rootElementHasAttributes = content.match(/<[^>]+ hya-component-name=[^>]+ hya-url=[^>]+>/);
 
+    console.log(`Processing file: ${filePath}`);
+    console.log(`Root element has attributes: ${rootElementHasAttributes !== null}`);
+
     if (!rootElementHasAttributes) {
         const componentName = getComponentNameFromFilePath(filePath);
+
+        console.log(`Component name: ${componentName}`);
 
         if (componentName) {
             let elementRegex;
             if (framework === 'vue') {
                 const childElement = getFirstChildElement(content);
+                console.log(`First child element: ${childElement}`);
                 if (childElement) {
                     elementRegex = new RegExp(`<${childElement}([^>]*)>`, 'g');
                 }
             } else {
                 elementRegex = new RegExp(`<${componentName}([^>]*)>`, 'g');
             }
+
+            console.log(`Element regex: ${elementRegex}`);
 
             if (elementRegex) {
                 content = content.replace(elementRegex, (match) => {
