@@ -9,18 +9,25 @@ function getComponentNameFromFilePath(filePath: string): string {
 }
 
 function getFirstChildElement(content: string): string | null {
-    const templateMatch = content.match(/<template[^>]*>([\s\S]*?)<\/template>/);
-    const templateContent = templateMatch ? templateMatch[1] : content;
-    const tempElement = document.createElement('div');
-    tempElement.innerHTML = templateContent;
-    const childElement = tempElement.querySelector(':scope > *:not(template, comment)');
-    if (childElement) {
-        return childElement.tagName.toLowerCase();
+    const templateIndex = content.indexOf('<template');
+    const templateEndIndex = content.indexOf('</template>', templateIndex);
+
+    if (templateIndex === -1 || templateEndIndex === -1) {
+        return null;
+    }
+
+    const templateContent = content.slice(templateIndex, templateEndIndex);
+    const childElementMatch = templateContent.match(/<([a-zA-Z0-9-_]+)\b/);
+
+    if (childElementMatch) {
+        const childElement = childElementMatch[1];
+        if (childElement !== 'template') {
+            return childElement;
+        }
     }
 
     return null;
 }
-
 
 export async function injectTagsIntoFile(filePath: string, framework: Framework): Promise<void> {
     let content = await readFile(filePath);
