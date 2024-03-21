@@ -2,9 +2,10 @@ import * as path from 'path';
 import { readFile, writeFile } from '../utils/fsOperations';
 import { Framework } from '../utils/types/framework';
 
-function getComponentNameFromTag(tag: string): string | null {
-    const match = tag.match(/<([A-Za-z0-9-]+)/);
-    return match ? match[1] : null;
+function getComponentNameFromFilePath(filePath: string): string {
+    const fileName = path.basename(filePath, path.extname(filePath));
+    const match = fileName.match(/([A-Za-z0-9-]+)/);
+    return match ? match[1] : '';
 }
 
 export async function injectTagsIntoFile(filePath: string, framework: Framework): Promise<void> {
@@ -12,7 +13,7 @@ export async function injectTagsIntoFile(filePath: string, framework: Framework)
     const rootElementHasAttributes = content.match(/<[^>]+ hya-component-name=[^>]+ hya-url=[^>]+>/);
 
     if (!rootElementHasAttributes) {
-        const componentName = getComponentNameFromTag(content);
+        const componentName = getComponentNameFromFilePath(filePath);
 
         if (componentName) {
             let elementRegex;
