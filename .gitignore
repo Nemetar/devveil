@@ -1,0 +1,24 @@
+# dependencies
+/node_modules
+/.pnpm
+
+# build
+/dist
+
+# environment variables
+.env
+
+# editor / IDE
+.vscode
+.idea
+*.sublime-workspace
+
+# logs and databases
+logs
+*.log
+*.sqlite
+*.db
+
+# operating system files
+.DS_Store
+Thumbs.db

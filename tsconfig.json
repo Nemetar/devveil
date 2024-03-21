@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "target": "es2020", // Cible la version ECMAScript 2020
+    "module": "commonjs", // Utilise le système de modules CommonJS
+    "strict": true, // Active tous les contrôles de type strict
+    "esModuleInterop": true, // Facilite l'importation des modules CommonJS
+    "forceConsistentCasingInFileNames": true, // Vérifie la cohérence des noms de fichiers
+    "moduleResolution": "node", // Utilise la résolution de modules Node.js
+    "sourceMap": true, // Génère des fichiers source map pour le débogage
+    "outDir": "dist", // Définit le répertoire de sortie pour les fichiers compilés
+    "resolveJsonModule": true, // Permet d'importer des fichiers JSON
+    "types": [
+      "node",
+      "jest"
+    ], // Spécifie les bibliothèques de types à inclure
+    "lib": [
+      "es2020",
+      "dom"
+    ] // Spécifie les bibliothèques à inclure dans la compilation
+  },
+  "include": [
+    "src/**/*"
+  ], // Inclut tous les fichiers TypeScript dans le répertoire src
+  "exclude": [
+    "node_modules"
+  ] // Exclut le répertoire node_modules
+}

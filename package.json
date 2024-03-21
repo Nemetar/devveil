@@ -1,0 +1,23 @@
+{
+  "name": "devveil",
+  "version": "1.1.1",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "npx tsc src/index.ts -outDir dist",
+    "init-highlighter": "node dist/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "onepushman",
+  "license": "ISC",
+  "dependencies": {
+    "fs-extra": "^11.2.0"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^11.0.4",
+    "@types/node": "^20.11.30",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.3"
+  }
+}
