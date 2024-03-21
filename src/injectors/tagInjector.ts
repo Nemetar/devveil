@@ -17,12 +17,14 @@ function getFirstChildElement(content: string): string | null {
     }
 
     const templateContent = content.slice(templateIndex, templateEndIndex);
-    const childElementMatch = templateContent.match(/<([a-zA-Z0-9-_]+)\b/);
+    const rootElementMatch = templateContent.match(/<([a-zA-Z0-9-_]+)\b/);
 
-    if (childElementMatch) {
-        const childElement = childElementMatch[1];
-        if (childElement !== 'template') {
-            return childElement;
+    if (rootElementMatch) {
+        const rootElement = rootElementMatch[1];
+        const childElementMatch = templateContent.match(new RegExp(`<${rootElement}[^>]*>\\s*<([a-zA-Z0-9-_]+)\\b`));
+
+        if (childElementMatch) {
+            return childElementMatch[1];
         }
     }
 
