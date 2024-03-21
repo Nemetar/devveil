@@ -11,16 +11,16 @@ function getComponentNameFromFilePath(filePath: string): string {
 function getFirstChildElement(content: string): string | null {
     const templateMatch = content.match(/<template[^>]*>([\s\S]*?)<\/template>/);
     const templateContent = templateMatch ? templateMatch[1] : content;
-    const childElementMatch = templateContent.match(/<(?!template\b)[^>\s]+/);
-    if (childElementMatch) {
-        const childElement = childElementMatch[0];
-        const childElementContent = content.match(new RegExp(`<${childElement}[^>]*>([\\s\\S]*?)<\\/${childElement}>`))?.[1];
-        if (childElementContent && getFirstChildElement(childElementContent)) {
-            return childElement;
-        }
+    const tempElement = document.createElement('div');
+    tempElement.innerHTML = templateContent;
+    const childElement = tempElement.querySelector(':scope > *:not(template, comment)');
+    if (childElement) {
+        return childElement.tagName.toLowerCase();
     }
+
     return null;
 }
+
 
 export async function injectTagsIntoFile(filePath: string, framework: Framework): Promise<void> {
     let content = await readFile(filePath);
