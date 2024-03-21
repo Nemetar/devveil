@@ -1,6 +1,6 @@
 import * as fs from 'fs-extra';
-import { Framework } from '../utils/types/framework';
 import path from 'path';
+import { Framework } from '../utils/types/framework';
 
 export async function detectFramework(projectRoot: string): Promise<Framework> {
     const packageJsonPath = path.join(projectRoot, 'package.json');

@@ -1,5 +1,4 @@
 import * as fs from 'fs-extra';
-import * as path from 'path';
 
 export async function readFile(filePath: string): Promise<string> {
     return await fs.readFile(filePath, 'utf-8');

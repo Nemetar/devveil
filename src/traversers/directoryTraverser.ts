@@ -1,7 +1,7 @@
 import path from "path";
+import fs from 'fs-extra';
 import { Framework } from "../utils/types/framework";
 import { injectTagsIntoFile } from "../injectors/tagInjector";
-import fs from 'fs-extra';
 
 export async function traverseDirectory(
     directoryPath: string,
