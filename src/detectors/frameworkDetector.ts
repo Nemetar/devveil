@@ -1,5 +1,5 @@
 import * as fs from 'fs-extra';
-import path from 'path';
+import * as path from 'path';
 import { Framework } from '../utils/types/framework';
 
 export async function detectFramework(projectRoot: string): Promise<Framework> {

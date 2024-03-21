@@ -1,4 +1,4 @@
-import path from 'path';
+import * as path from 'path';
 import { readFile, writeFile } from '../utils/fsOperations';
 import { Framework } from '../utils/types/framework';
 
