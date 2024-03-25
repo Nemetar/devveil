@@ -2,12 +2,14 @@ import * as path from 'path';
 import * as fs from 'fs-extra';
 import { Framework } from "../utils/types/framework";
 import { injectTagsIntoFile } from "../injectors/tagInjector";
+import { removeTagsFromFile } from '../removers/tagRemover';
 
 export async function traverseDirectory(
     directoryPath: string,
     baseDir: string,
     framework: Framework,
-    extensionsToTraverse: string[]
+    extensionsToTraverse: string[],
+    shouldInject: boolean
 ): Promise<void> {
     const absoluteDirectoryPath = path.join(baseDir, directoryPath);
 
@@ -24,9 +26,13 @@ export async function traverseDirectory(
             const stats = await fs.stat(filePath);
 
             if (stats.isDirectory()) {
-                await traverseDirectory(file, absoluteDirectoryPath, framework, extensionsToTraverse);
+                await traverseDirectory(file, absoluteDirectoryPath, framework, extensionsToTraverse, shouldInject);
             } else if (stats.isFile() && extensionsToTraverse.includes(path.extname(file))) {
-                await injectTagsIntoFile(filePath, framework);
+                if (shouldInject) {
+                    await injectTagsIntoFile(filePath, framework);
+                } else {
+                    await removeTagsFromFile(filePath, framework);
+                }
             }
         }
     } catch (error) {
