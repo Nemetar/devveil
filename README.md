@@ -2,7 +2,9 @@
 
 Devveil is an npm package for developers that aims to make it easier to search and debug components. When Devveil is activated and you hover over a component, a pop-up appears displaying the component's name and a link that redirects directly to the component in Visual Studio Code. It supports Vue, React, Svelte, basic HTML, and Angular.
 
-![devveil](https://github.com/Nemetar/devveil/assets/53270472/5367e395-54a1-4c01-9bf4-d10a6ff3acee)
+<p align="center">
+  <img src="https://github.com/Nemetar/devveil/assets/53270472/a39c0fd3-0926-4b13-a439-577d9e0a6dfa" alt="devveil" width="100%">
+</p>
 
 ## Installation 🔧
 
