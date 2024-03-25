@@ -1,11 +1,14 @@
 {
   "name": "devveil",
-  "version": "1.1.9",
+  "version": "1.2.1",
   "description": "",
   "main": "dist/index.js",
+  "bin": {
+    "devveil": "dist/index.js"
+  },
   "scripts": {
     "build": "npx tsc src/index.ts -outDir dist",
-    "init-highlighter": "node dist/index.js",
+    "devveil": "node dist/index.js",
     "test": "jest"
   },
   "jest": {

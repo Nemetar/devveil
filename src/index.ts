@@ -26,7 +26,7 @@ const DIRECTORIES_TO_TRAVERSE: string[] = ['src/components', 'src/pages', 'src/v
 async function main() {
   const framework = await detectFramework(PROJECT_ROOT);
 
-  if (argv.inject) {
+  if (argv.arguments.inject) {
     console.log('Injecting global code and component tags...');
     console.log(`Detected framework: ${framework}`);
 
@@ -37,7 +37,7 @@ async function main() {
     }
 
     console.log('Global code and component tags injected successfully!');
-  } else if (argv.remove) {
+  } else if (argv.arguments.remove) {
     console.log('Removing global code and component tags...');
 
     await removeGlobalCode(PROJECT_ROOT);
