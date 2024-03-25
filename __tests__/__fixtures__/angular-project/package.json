@@ -1,0 +1,7 @@
+{
+    "name": "angular-project",
+    "version": "1.0.0",
+    "dependencies": {
+        "@angular/core": "^13.3.0"
+    }
+}
