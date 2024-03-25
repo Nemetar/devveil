@@ -2,10 +2,16 @@ import { injectGlobalCode } from './injectors/globalCodeInjector';
 import { removeGlobalCode } from './removers/globalCodeRemover';
 import { traverseDirectory } from './traversers/directoryTraverser';
 import { detectFramework } from './detectors/frameworkDetector';
-import yargs from 'yargs';
+import yargs, { Argv } from 'yargs';
 import { hideBin } from 'yargs/helpers';
 
-const argv = yargs(hideBin(process.argv))
+interface Arguments {
+  inject?: boolean;
+  remove?: boolean;
+  help?: boolean;
+}
+
+const argv: Arguments = yargs(hideBin(process.argv))
   .option('inject', {
     alias: 'i',
     description: 'Inject global code and component tags',
@@ -17,7 +23,7 @@ const argv = yargs(hideBin(process.argv))
     type: 'boolean',
   })
   .help()
-  .alias('help', 'h');
+  .alias('help', 'h').argv as Arguments;
 
 const PROJECT_ROOT = process.cwd();
 const EXTENSIONS_TO_TRAVERSE: string[] = ['.html', '.jsx', '.tsx', '.vue', '.svelte'];
@@ -26,7 +32,7 @@ const DIRECTORIES_TO_TRAVERSE: string[] = ['src/components', 'src/pages', 'src/v
 async function main() {
   const framework = await detectFramework(PROJECT_ROOT);
 
-  if (argv.arguments.inject) {
+  if (argv.inject) {
     console.log('Injecting global code and component tags...');
     console.log(`Detected framework: ${framework}`);
 
@@ -37,7 +43,7 @@ async function main() {
     }
 
     console.log('Global code and component tags injected successfully!');
-  } else if (argv.arguments.remove) {
+  } else if (argv.remove) {
     console.log('Removing global code and component tags...');
 
     await removeGlobalCode(PROJECT_ROOT);
