@@ -19,7 +19,7 @@ Devveil has two main commands:
 * `devveil --inject`: Adds the necessary tags to the elements in your project.
 * `devveil --remove`: Removes the added elements before committing.
 
-To use Devveil, simply run one of the commands above in your project directory. Devveil currently takes into account elements in the `src/components`, `src/pages`, and `src/view` directories.
+To use Devveil, simply run one of the commands above in your project directory. Devveil currently takes into account elements in the `src/components`, `src/pages`, and `src/views` directories.
 
 ## How it Works 🤔
 
