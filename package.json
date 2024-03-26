@@ -1,7 +1,7 @@
 {
   "name": "devveil",
-  "version": "1.2.6",
-  "description": "",
+  "version": "0.0.1",
+  "description": "Devveil is an npm package for developers that simplifies component search and debugging in Vue, React, Svelte, HTML, and Angular projects.",
   "main": "dist/index.js",
   "bin": {
     "devveil": "dist/index.js"
@@ -23,7 +23,24 @@
       "jsx"
     ]
   },
-  "keywords": [],
+  "keywords": [
+    "npm",
+    "package",
+    "developer",
+    "tool",
+    "debugging",
+    "component",
+    "search",
+    "Vue",
+    "React",
+    "Svelte",
+    "HTML",
+    "Angular",
+    "Visual Studio Code",
+    "VSCode",
+    "pop-up",
+    "link"
+  ],
   "author": "onepushman",
   "license": "ISC",
   "dependencies": {
